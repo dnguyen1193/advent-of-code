@@ -56,4 +56,11 @@ SAMPLE_INPUT = '9513446799636685297929646689682997114316733445451534532351778' \
                '26989157872118279163127742349'
 
 if __name__ == '__main__':
-    print SAMPLE_INPUT
+    sum = 0
+    prev_char = None
+    for char in SAMPLE_INPUT:
+        if prev_char:
+           sum += int(char) if prev_char == char else 0
+        prev_char = char
+    sum += int(SAMPLE_INPUT[-1]) if SAMPLE_INPUT[0] == SAMPLE_INPUT[-1] else 0
+    print sum
