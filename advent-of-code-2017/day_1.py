@@ -71,6 +71,12 @@ SAMPLE_INPUT = '9513446799636685297929646689682997114316733445451534532351778' \
 
 
 def get_sequence():
+    """
+    Gets a sequence to perform captcha check on from user input.
+    Checks to ensure input is valid.
+    :return: None if user is finished checking sequences,
+             or sequence input by user.
+    """
     user_input = raw_input('Please provide a sequence of digits to perform '
                            'captcha summation on or "done" to exit: ')
     if user_input == 'done':
@@ -86,6 +92,10 @@ def get_sequence():
 
 
 def get_captcha_check():
+    """
+    Determines which captcha check user wants to run the sequence through.
+    :return: 1 or 2
+    """
     user_input = raw_input('Which captcha would you like to run? '
                            'Options are 1 or 2: ')
     if user_input not in ['1', '2']:
@@ -93,7 +103,14 @@ def get_captcha_check():
         return get_captcha_check()
     return int(user_input)
 
+
 def calculate_captcha_summation(sequence, captcha_type):
+    """
+    Calculates the specified captcha summation on sequence
+    :param sequence: A sequence of digits (as a string)
+    :param captcha_type: 1 or 2, specifying the captcha type.
+    :return: Summation of the given sequence.
+    """
     sum = 0
     if captcha_type == 1:
         prev_char = None
@@ -103,7 +120,8 @@ def calculate_captcha_summation(sequence, captcha_type):
             prev_char = char
         sum += int(sequence[-1]) if sequence[0] == sequence[-1] else 0
     if captcha_type == 2:
-        sequence_length = len(sequence) # assumed to be positive
+        # sequence of odd length will have undefined behavior.
+        sequence_length = len(sequence)  # assumed to be even
         for i in range(sequence_length):
             if i < sequence_length/2:
                 chars_to_compare = sequence[i::sequence_length/2]
