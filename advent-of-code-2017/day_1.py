@@ -1,8 +1,9 @@
 # ==============================================================================
 #
 # Day 1 - Inverse Captcha
-# The captcha requires you to review a sequence of digits (your puzzle input)
-# and find the sum of all digits that match the next digit in the list.
+#
+# Part 1: The captcha requires you to review a sequence of digits (your puzzle
+# input) and find the sum of all digits that match the next digit in the list.
 # The list is circular, so the digit after the last digit is the first digit
 # in the list.
 #
@@ -14,6 +15,19 @@
 # 91212129 produces 9 because the only digit that matches
 # the next one is the last digit, 9.
 #
+# Part 2: Now, instead of considering the next digit, it wants you to consider
+# the digit halfway around the circular list. That is, if your list contains 10
+# items, only include a digit in your sum if the digit 10/2 = 5 steps forward
+# matches it. Fortunately, your list has an even number of elements.
+#
+# Examples:
+# 1212 produces 6: the list contains 4 items, and all four digits
+# match the digit 2 items ahead.
+# 1221 produces 0, because every comparison is between a 1 and a 2.
+# 123425 produces 4, because both 2s match each other, but no other
+# digit has a match.
+# 123123 produces 12.
+# 12131415 produces 4.
 # ==============================================================================
 
 __author__ = 'Duyen Nguyen'
@@ -89,7 +103,15 @@ def calculate_captcha_summation(sequence, captcha_type):
             prev_char = char
         sum += int(sequence[-1]) if sequence[0] == sequence[-1] else 0
     if captcha_type == 2:
-        sum = 0
+        sequence_length = len(sequence) # assumed to be positive
+        for i in range(sequence_length):
+            if i < sequence_length/2:
+                chars_to_compare = sequence[i::sequence_length/2]
+            else:
+                chars_to_compare = sequence[i::-sequence_length/2]
+            sum += int(chars_to_compare[0])\
+                if chars_to_compare[0] == chars_to_compare[1]\
+                else 0
 
     return sum
 
