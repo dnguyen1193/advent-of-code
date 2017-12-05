@@ -56,6 +56,21 @@ SAMPLE_INPUT = '9513446799636685297929646689682997114316733445451534532351778' \
                '26989157872118279163127742349'
 
 
+def get_sequence():
+    user_input = raw_input('Please provide a sequence of digits to perform '
+                           'captcha summation on or "done" to exit: ')
+    if user_input == 'done':
+        return None
+    else:
+        try:
+            int(user_input)
+            return user_input
+        except ValueError:
+            print('Invalid input "{}". '
+                  'Must be a sequence of digits.').format(user_input)
+            return get_sequence()
+
+
 def calculate_captcha_summation(sequence):
     sum = 0
     prev_char = None
@@ -69,13 +84,8 @@ def calculate_captcha_summation(sequence):
 
 
 if __name__ == '__main__':
-    user_input = None
-    while user_input != 'done':
-        user_input = raw_input('Please provide a sequence of digits to perform '
-                               'captcha summation on or "done" to exit: ')
-        try:
-            int(user_input)
-            print('Captcha summation of is {}.').format(calculate_captcha_summation(user_input))
-        except ValueError:
-            print('Invalid input "{}". '
-                  'Must be a sequence of digits.').format(user_input)
+    sequence = get_sequence()
+    while sequence:
+        print 'Captcha summation of is {}.'\
+            .format(calculate_captcha_summation(sequence))
+        sequence = get_sequence()
