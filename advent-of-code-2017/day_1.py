@@ -60,7 +60,16 @@ if __name__ == '__main__':
     prev_char = None
     for char in SAMPLE_INPUT:
         if prev_char:
-           sum += int(char) if prev_char == char else 0
+            sum += int(char) if prev_char == char else 0
         prev_char = char
     sum += int(SAMPLE_INPUT[-1]) if SAMPLE_INPUT[0] == SAMPLE_INPUT[-1] else 0
     print sum
+    user_input = None
+    while user_input != 'done':
+        user_input = raw_input('Please provide a sequence of digits to perform '
+                               'captcha summation on or "done" to exit: ')
+        try:
+            int(user_input)
+        except ValueError:
+            print('Invalid input "{}". '
+                  'Must be a sequence of digits.').format(user_input)
