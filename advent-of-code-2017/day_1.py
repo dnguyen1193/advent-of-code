@@ -1,6 +1,6 @@
 # ==============================================================================
 #
-# Day 1 - Inverse Captcha
+# Day 1 - Inverse Captcha (http://adventofcode.com/2017/day/1)
 #
 # Part 1: The captcha requires you to review a sequence of digits (your puzzle
 # input) and find the sum of all digits that match the next digit in the list.
