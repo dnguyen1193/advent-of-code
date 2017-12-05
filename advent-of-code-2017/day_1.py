@@ -71,14 +71,25 @@ def get_sequence():
             return get_sequence()
 
 
-def calculate_captcha_summation(sequence):
+def get_captcha_check():
+    user_input = raw_input('Which captcha would you like to run? '
+                           'Options are 1 or 2: ')
+    if user_input not in ['1', '2']:
+        print('Invalid input "{}". Must be 1 or 2.').format(user_input)
+        return get_captcha_check()
+    return int(user_input)
+
+def calculate_captcha_summation(sequence, captcha_type):
     sum = 0
-    prev_char = None
-    for char in sequence:
-        if prev_char:
-            sum += int(char) if prev_char == char else 0
-        prev_char = char
-    sum += int(sequence[-1]) if sequence[0] == sequence[-1] else 0
+    if captcha_type == 1:
+        prev_char = None
+        for char in sequence:
+            if prev_char:
+                sum += int(char) if prev_char == char else 0
+            prev_char = char
+        sum += int(sequence[-1]) if sequence[0] == sequence[-1] else 0
+    if captcha_type == 2:
+        sum = 0
 
     return sum
 
@@ -86,6 +97,7 @@ def calculate_captcha_summation(sequence):
 if __name__ == '__main__':
     sequence = get_sequence()
     while sequence:
+        captcha_type = get_captcha_check()
         print 'Captcha summation of is {}.'\
-            .format(calculate_captcha_summation(sequence))
+            .format(calculate_captcha_summation(sequence, captcha_type))
         sequence = get_sequence()
